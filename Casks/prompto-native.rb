@@ -30,7 +30,9 @@ cask "prompto-native" do
 
   # build.sh is one swiftc call on the host, so the binary is thin arm64.
   depends_on arch: :arm64
-  depends_on macos: ">= :ventura"
+  # LSMinimumSystemVersion, as a floor and not an exact match — the bare symbol
+  # is what the string form ">= :ventura" was deprecated in favour of.
+  depends_on macos: :ventura
 
   app "Prompto Native.app"
 
