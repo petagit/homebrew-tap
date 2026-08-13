@@ -27,7 +27,6 @@ cask "prompto-native" do
   # own updater dittos over the bundle in place instead. So brew installs the
   # first copy and Update.swift carries it from there.
   auto_updates true
-
   # build.sh is one swiftc call on the host, so the binary is thin arm64.
   depends_on arch: :arm64
   # LSMinimumSystemVersion, as a floor and not an exact match — the bare symbol
@@ -50,6 +49,12 @@ cask "prompto-native" do
                    sudo: false
   end
 
+  zap trash: [
+    "~/Library/Application Support/Prompto Native",
+    "~/Library/Preferences/com.prompto.native.plist",
+    "~/Library/Saved Application State/com.prompto.native.savedState",
+  ]
+
   caveats <<~EOS
     Prompto Native needs Accessibility to paste into other apps. Grant it once in
     System Settings › Privacy & Security › Accessibility; the permission is keyed
@@ -62,10 +67,4 @@ cask "prompto-native" do
     This build is signed but not notarised, so the installer strips the quarantine
     attribute for you.
   EOS
-
-  zap trash: [
-    "~/Library/Application Support/Prompto Native",
-    "~/Library/Preferences/com.prompto.native.plist",
-    "~/Library/Saved Application State/com.prompto.native.savedState",
-  ]
 end
